@@ -1,0 +1,141 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20220907175658
+Username: ROBERTOPC\reyes
+RunAs User: ROBERTOPC\reyes
+Configuration Name: 
+Machine: ROBERTOPC (Microsoft Windows NT 10.0.22000.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+Process ID: 5608
+PSVersion: 5.1.22000.832
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.22000.832
+BuildVersion: 10.0.22000.832
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\git-6.txt
+PS C:\WINDOWS\system32\git-katas> whoami
+robertopc\reyes
+PS C:\WINDOWS\system32\git-katas> cd merge-conflict 
+PS C:\WINDOWS\system32\git-katas\merge-conflict> cat README.md
+# Git Kata: Merge Conflict
+
+## Setup:
+
+1. Run `source setup.sh` (or `.\setup.ps1` in PowerShell)
+
+## The task
+
+In this kata git cannot figure out how to merge the content added on `merge-conflict-branch1` with the content on `master`.
+
+Both changes need to be in master when you're done.
+
+1. Use `git merge` to bring the changes from `merge-conflict-branch1` on to `master`.
+2. What does `git status` now report.
+3. Fix the conflict with your favorite editor.
+4. Follow the instructions in `git status` to complete the merge.
+5. What does `git log --oneline --graph` show?
+
+## Relevant commands
+- `git merge`
+- `git status`
+- `git add`
+- `git commit`
+- `git log --oneline --graph`
+PS C:\WINDOWS\system32\git-katas\merge-conflict> .\setup.ps1
+Initialized empty Git repository in C:/Windows/System32/git-katas/merge-conflict/exercise/.git/
+
+
+
+[master (root-commit) 6b01698] Add file greeting.txt
+ 1 file changed, 1 insertion(+)
+ create mode 100644 greeting.txt
+
+[master e50ccd9] Add content to greeting.txt
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+Switched to a new branch 'merge-conflict-branch1'
+
+[merge-conflict-branch1 3c61f31] add relevant fact
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file.txt
+Switched to branch 'master'
+
+[master c4b6eff] add indispensable truth!
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file.txt
+PS C:\WINDOWS\system32\git-katas\merge-conflict\exercise> git merge merge-conflict-branch1
+Auto-merging file.txt
+CONFLICT (add/add): Merge conflict in file.txt
+Automatic merge failed; fix conflicts and then commit the result.
+PS C:\WINDOWS\system32\git-katas\merge-conflict\exercise> git status
+On branch master
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+        both added:      file.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+PS C:\WINDOWS\system32\git-katas\merge-conflict\exercise> echo There are unmerged paths due to both branches adding file.txt
+There
+are
+unmerged
+paths
+due
+to
+both
+branches
+adding
+file.txt
+PS C:\WINDOWS\system32\git-katas\merge-conflict\exercise> notepad.exe file.txt
+PS C:\WINDOWS\system32\git-katas\merge-conflict\exercise> git add file.txt
+
+PS C:\WINDOWS\system32\git-katas\merge-conflict\exercise> git commit -m "Fixed merge conflict" file.txt
+fatal: cannot do a partial commit during a merge.
+PS C:\WINDOWS\system32\git-katas\merge-conflict\exercise> git commit -a
+[master 94714dd] Merge branch 'merge-conflict-branch1'
+PS C:\WINDOWS\system32\git-katas\merge-conflict\exercise> git merge merge-conflict-branch1
+Already up to date.
+PS C:\WINDOWS\system32\git-katas\merge-conflict\exercise> git status
+On branch master
+nothing to commit, working tree clean
+PS C:\WINDOWS\system32\git-katas\merge-conflict\exercise> git log --oneline --graph
+*   94714dd (HEAD -> master) Merge branch 'merge-conflict-branch1'
+|\
+| * 3c61f31 (merge-conflict-branch1) add relevant fact
+* | c4b6eff add indispensable truth!
+|/
+* e50ccd9 Add content to greeting.txt
+* 6b01698 Add file greeting.txt
+PS C:\WINDOWS\system32\git-katas\merge-conflict\exercise> echo git log shows the merge commit along with the commits thtat were merged and adding greeting.txt and adding content to it
+git
+log
+shows
+the
+merge
+commit
+along
+with
+the
+commits
+thtat
+were
+merged
+and
+adding
+greeting.txt
+and
+adding
+content
+to
+it
+PS C:\WINDOWS\system32\git-katas\merge-conflict\exercise> Stop-Transcript
+**********************
+Windows PowerShell transcript end
+End time: 20220907180434
+**********************

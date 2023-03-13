@@ -1,0 +1,343 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20220906162704
+Username: ROBERTOPC\reyes
+RunAs User: ROBERTOPC\reyes
+Configuration Name: 
+Machine: ROBERTOPC (Microsoft Windows NT 10.0.22000.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+Process ID: 13368
+PSVersion: 5.1.22000.832
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.22000.832
+BuildVersion: 10.0.22000.832
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\git-5.txt
+PS C:\WINDOWS\system32\git-katas> cd basic-stashing
+PS C:\WINDOWS\system32\git-katas\basic-stashing> whoami
+robertopc\reyes
+PS C:\WINDOWS\system32\git-katas\basic-stashing> cat README.md
+# Git Kata: Basic stashing
+
+## Setup:
+
+1. Run `source setup.sh` (or `.\setup.ps1` in PowerShell)
+
+## The task
+
+You are working on your project. You've staged some work and have some unstaged work as well.
+Suddenly, you're made aware that a bug has made it to production. You'll stash your work, fix the bug and get back to your original work.
+
+1. Explore the repo
+   1. What work do you have in the working directory?
+   2. What work do you have staged ?
+   3. What does the commit log look like ?
+   >*Notice that file.txt has some staged changes (i.e. changes in the index) and unstaged changes (changes in the working directory)*
+2. Use `git stash` to stash your current work.
+   1. Now, what work do you have in the working directory?
+   2. What work do you have staged ?
+   3. What does the commit log look like ?
+   4. What does the stash list look like ?
+3. Fix the typos in bug.txt on master and commit your changes.
+4. Now to get back to your work, apply the stash to master.
+   1. What work do you have in the working directory?
+   2. What work do you have staged ?
+   >*Oops. All our changes are unstaged now. This may be undesirable and unexpected*
+5. Undo our changes with `git reset --hard HEAD`. This is an unsafe command as it will remove files from your index and working directory permanently, but we have our changes safely stashed so we're ok. Review the [reset](reset/README.md) kata if you're unsure of what happens here.
+6. Apply the stash to master with the `--index` option.
+   1. What work do you have in the working directory?
+   2. What work do you have staged ?
+   >*Ok, back to where we were!*
+7. We won't need the stash anymore. Drop it.
+   1. What does the stash list look like ?
+   2. What does the commit log look like ?
+
+
+
+## Useful commands
+
+- `git status`
+- `git status -s`
+- `git diff`
+- `git diff master`
+- `git stash`
+- `git stash list`
+- `git stash apply`
+- `git stash apply --index`
+- `git stash drop`
+- `git log --oneline --all --graph`
+- `git commit`
+- `git add`
+PS C:\WINDOWS\system32\git-katas\basic-stashing> .\setup.ps1
+Initialized empty Git repository in C:/Windows/System32/git-katas/basic-stashing/exercise/.git/
+
+
+
+[master (root-commit) f3b35e4] Initial commit
+ 2 files changed, 2 insertions(+)
+ create mode 100644 file.txt
+ create mode 100644 fix.txt
+
+[master 5ecf5a4] add bug.txt
+ 1 file changed, 1 insertion(+)
+ create mode 100644 bug.txt
+
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   file.txt
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   file.txt
+        modified:   fix.txt
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> echo A modification on file.txt and fix.txt are not staged and are in the working directory
+A
+modification
+on
+file.txt
+and
+fix.txt
+are
+not
+staged
+and
+are
+in
+the
+working
+directory
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> echo A modification on file.txt is staged for commit
+A
+modification
+on
+file.txt
+is
+staged
+for
+commit
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> git log
+commit 5ecf5a4ef55ade3d5923a561ca194f0b1a786f59 (HEAD -> master)
+Author: git-katas trainer bot <git-katas@example.com>
+Date:   Tue Sep 6 16:27:52 2022 -0500
+
+    add bug.txt
+
+commit f3b35e42ccb9527a862b261fb91ae6467cfbd95b
+Author: git-katas trainer bot <git-katas@example.com>
+Date:   Tue Sep 6 16:27:52 2022 -0500
+
+    Initial commit
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> echo There are two commits on the git log, the initial commit and a commit adding bug.txt
+There
+are
+two
+commits
+on
+the
+git
+log
+the
+initial
+commit
+and
+a
+commit
+adding
+bug.txt
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> git stash
+Saved working directory and index state WIP on master: 5ecf5a4 add bug.txt
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> git status
+On branch master
+nothing to commit, working tree clean
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> echo There is are no unstaged changes on the branch
+There
+is
+are
+no
+unstaged
+changes
+on
+the
+branch
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> echo There are no longer any staged changes on the branch
+There
+are
+no
+longer
+any
+staged
+changes
+on
+the
+branch
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> git log
+commit 5ecf5a4ef55ade3d5923a561ca194f0b1a786f59 (HEAD -> master)
+Author: git-katas trainer bot <git-katas@example.com>
+Date:   Tue Sep 6 16:27:52 2022 -0500
+
+    add bug.txt
+
+commit f3b35e42ccb9527a862b261fb91ae6467cfbd95b
+Author: git-katas trainer bot <git-katas@example.com>
+Date:   Tue Sep 6 16:27:52 2022 -0500
+
+    Initial commit
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> echo There are still the same two commits as before
+There
+are
+still
+the
+same
+two
+commits
+as
+before
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> git stash list
+stash@{0}: WIP on master: 5ecf5a4 add bug.txt
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> echo There is one thing listed which is "add bug.txt"
+There
+is
+one
+thing
+listed
+which
+is
+add bug.txt
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> cat bug.txt
+this file haaasss some typos
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> sc bug.txt 'This file has some typos.'
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> git add bug.txt
+
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> git commit -m "Fixed bug typos" bug.txt
+[master 64be9b9] Fixed bug typos
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> git stash apply
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   file.txt
+        modified:   fix.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> echo All of the changes are in the working directory and unstaged
+All
+of
+the
+changes
+are
+in
+the
+working
+directory
+and
+unstaged
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> git status -s
+ M file.txt
+ M fix.txt
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> echo There are no staged changes
+There
+are
+no
+staged
+changes
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> git reset --hard HEAD
+HEAD is now at 64be9b9 Fixed bug typos
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> git stash apply --index
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   file.txt
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   file.txt
+        modified:   fix.txt
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> echo Now only the original unstaged changes are back in the working directory
+Now
+only
+the
+original
+unstaged
+changes
+are
+back
+in
+the
+working
+directory
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> echo The modification to file.txt that was staged at the beginning is back
+The
+modification
+to
+file.txt
+that
+was
+staged
+at
+the
+beginning
+is
+back
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> git stash drop
+Dropped refs/stash@{0} (f1b2dd9fc709aff23ea4c4dc6b739cb41c199397)
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> git stash list
+
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> echo The stash list is empty
+The
+stash
+list
+is
+empty
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> git log
+commit 64be9b9f0d0c29548d8aabad634a047c36f6dd74 (HEAD -> master)
+Author: git-katas trainer bot <git-katas@example.com>
+Date:   Wed Sep 7 16:52:32 2022 -0500
+
+    Fixed bug typos
+
+commit 5ecf5a4ef55ade3d5923a561ca194f0b1a786f59
+Author: git-katas trainer bot <git-katas@example.com>
+Date:   Tue Sep 6 16:27:52 2022 -0500
+
+    add bug.txt
+
+commit f3b35e42ccb9527a862b261fb91ae6467cfbd95b
+Author: git-katas trainer bot <git-katas@example.com>
+Date:   Tue Sep 6 16:27:52 2022 -0500
+
+    Initial commit
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> echo There are three commits, the two that were listed before and now additionally the commit fixing the typos in bug.txt
+There
+are
+three
+commits
+the
+two
+that
+were
+listed
+before
+and
+now
+additionally
+the
+commit
+fixing
+the
+typos
+in
+bug.txt
+PS C:\WINDOWS\system32\git-katas\basic-stashing\exercise> Stop-Transcript
+**********************
+Windows PowerShell transcript end
+End time: 20220907165800
+**********************

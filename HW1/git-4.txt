@@ -1,0 +1,215 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20220906142149
+Username: ROBERTOPC\reyes
+RunAs User: ROBERTOPC\reyes
+Configuration Name: 
+Machine: ROBERTOPC (Microsoft Windows NT 10.0.22000.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+Process ID: 13368
+PSVersion: 5.1.22000.832
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.22000.832
+BuildVersion: 10.0.22000.832
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\git-4.txt
+PS C:\WINDOWS\system32\git-katas> whoami
+robertopc\reyes
+PS C:\WINDOWS\system32\git-katas> cd basic-revert 
+PS C:\WINDOWS\system32\git-katas\basic-revert> cat README.md
+# Git Kata: Basic revert
+## Setup:
+
+1. Run `source setup.sh` (or `.\setup.ps1` in PowerShell)
+
+## The task
+
+In this task a few changes snuck in, that we'd like to get out. Our history is public, so we can't just change it. Rather we need to use revert to remove the unwanted changes in a safe way.
+
+1. Use `git log --decorate --oneline` to look at the history
+2.  Use `cat` to view the content of `greeting.txt`
+3.  Use `git revert` on the newest commit, to remove the changes the last commit added
+4.  Use `git log --decorate --oneline` to view the history
+5.  Did the revert command add or remove a commit?
+6.  Use `cat` to view the content of `greeting.txt`
+7.  Use `ls` to see the content of the workspace
+8.  Use `git log --decorate --oneline` to find the sha of the commit adding credentials to the repository
+9.  Use `git revert` to revert the commit that added the credentials
+10. Use `git log --decorate --oneline` to view the history
+11. Use `ls` to see the content of the workspace
+12. How many commits were added or changed by the last revert?
+13. Use `git show` with the sha of the commit you reverted to see that the credentials file is stilll in the history
+14. As you have now reverted the credentials file, so it is removed from your working directory, is it also removed from git?
+
+## Useful commands
+- `git revert <ref>`
+- `git log --decorate --oneline`
+- `git show <ref>`
+PS C:\WINDOWS\system32\git-katas\basic-revert> .\setup.ps1
+Initialized empty Git repository in C:/Windows/System32/git-katas/basic-revert/exercise/.git/
+
+
+
+[master (root-commit) b3547a4] Add file greeting.txt
+ 1 file changed, 1 insertion(+)
+ create mode 100644 greeting.txt
+
+[master 597dbf1] Add credentials to repository
+ 1 file changed, 1 insertion(+)
+ create mode 100644 credentials.txt
+
+[master e739120] Add content to greeting.txt
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+[master 5ed6498] Overwrite greeting.txt
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+PS C:\WINDOWS\system32\git-katas\basic-revert\exercise> cat greeting.txt
+This should have been appended to the original content, rather than overwriting it
+PS C:\WINDOWS\system32\git-katas\basic-revert\exercise> git log --decorate --oneline
+5ed6498 (HEAD -> master) Overwrite greeting.txt
+e739120 Add content to greeting.txt
+597dbf1 Add credentials to repository
+b3547a4 Add file greeting.txt
+PS C:\WINDOWS\system32\git-katas\basic-revert\exercise> cat greeting.txt
+This should have been appended to the original content, rather than overwriting it
+PS C:\WINDOWS\system32\git-katas\basic-revert\exercise> git revert 5ed6498
+[master eebe459] Revert "Overwrite greeting.txt"
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+PS C:\WINDOWS\system32\git-katas\basic-revert\exercise> git log --decorate --oneline
+eebe459 (HEAD -> master) Revert "Overwrite greeting.txt"
+5ed6498 Overwrite greeting.txt
+e739120 Add content to greeting.txt
+597dbf1 Add credentials to repository
+b3547a4 Add file greeting.txt
+PS C:\WINDOWS\system32\git-katas\basic-revert\exercise> echo The revert command added a commit
+The
+revert
+command
+added
+a
+commit
+PS C:\WINDOWS\system32\git-katas\basic-revert\exercise> cat greeting.txt
+Original File Content
+PS C:\WINDOWS\system32\git-katas\basic-revert\exercise> ls
+
+
+    Directory: C:\WINDOWS\system32\git-katas\basic-revert\exercise
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----          9/6/2022   2:31 PM             21 credentials.txt
+-a----          9/6/2022   2:33 PM             23 greeting.txt
+
+
+PS C:\WINDOWS\system32\git-katas\basic-revert\exercise> git log --decorate --oneline
+eebe459 (HEAD -> master) Revert "Overwrite greeting.txt"
+5ed6498 Overwrite greeting.txt
+e739120 Add content to greeting.txt
+597dbf1 Add credentials to repository
+b3547a4 Add file greeting.txt
+PS C:\WINDOWS\system32\git-katas\basic-revert\exercise> git revert 597dbf1
+[master e4d6b21] Revert "Add credentials to repository"
+ 1 file changed, 1 deletion(-)
+ delete mode 100644 credentials.txt
+PS C:\WINDOWS\system32\git-katas\basic-revert\exercise> git log --decorate --oneline
+e4d6b21 (HEAD -> master) Revert "Add credentials to repository"
+eebe459 Revert "Overwrite greeting.txt"
+5ed6498 Overwrite greeting.txt
+e739120 Add content to greeting.txt
+597dbf1 Add credentials to repository
+b3547a4 Add file greeting.txt
+PS C:\WINDOWS\system32\git-katas\basic-revert\exercise> ls
+
+
+    Directory: C:\WINDOWS\system32\git-katas\basic-revert\exercise
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----          9/6/2022   2:33 PM             23 greeting.txt
+
+
+PS C:\WINDOWS\system32\git-katas\basic-revert\exercise> echo One commit was added by the last revert however credentials is no longer present
+One
+commit
+was
+added
+by
+the
+last
+revert
+however
+credentials
+is
+no
+longer
+present
+PS C:\WINDOWS\system32\git-katas\basic-revert\exercise> git show e4d6b21
+commit e4d6b21639463c8d4aa9269dec49b7911f45b008 (HEAD -> master)
+Author: git-katas trainer bot <git-katas@example.com>
+Date:   Tue Sep 6 14:35:40 2022 -0500
+
+    Revert "Add credentials to repository"
+
+    This reverts commit 597dbf13c4c613e5e602e25a9fd3c9b76c42d726.
+
+diff --git a/credentials.txt b/credentials.txt
+deleted file mode 100644
+index 8995708..0000000
+--- a/credentials.txt
++++ /dev/null
+@@ -1 +0,0 @@
+-supersecretpassword
+PS C:\WINDOWS\system32\git-katas\basic-revert\exercise> git show e739120
+commit e739120eaad49f737f79cc3b7a77fbaa7928222c
+Author: git-katas trainer bot <git-katas@example.com>
+Date:   Tue Sep 6 14:31:10 2022 -0500
+
+    Add content to greeting.txt
+
+diff --git a/greeting.txt b/greeting.txt
+index 8b13789..899f48c 100644
+--- a/greeting.txt
++++ b/greeting.txt
+@@ -1 +1 @@
+-
++Original File Content
+PS C:\WINDOWS\system32\git-katas\basic-revert\exercise> echo It is not removed from git, it is still in the commit history
+It
+is
+not
+removed
+from
+git
+it
+is
+still
+in
+the
+commit
+history
+PS C:\WINDOWS\system32\git-katas\basic-revert\exercise> Stop-Transcript in PowerShell
+>> TerminatingError(Stop-Transcript): "A positional parameter cannot be found that accepts argument 'in'."
+Stop-Transcript : A positional parameter cannot be found that accepts argument 'in'.
+At line:1 char:1
++ Stop-Transcript in PowerShell
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Stop-Transcript], ParameterBindingException
+    + FullyQualifiedErrorId : PositionalParameterNotFound,Microsoft.PowerShell.Commands.StopTranscriptCommand
+Stop-Transcript : A positional parameter cannot be found that accepts argument 'in'.
+At line:1 char:1
++ Stop-Transcript in PowerShell
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidArgument: (:) [Stop-Transcript], ParameterBindingException
+    + FullyQualifiedErrorId : PositionalParameterNotFound,Microsoft.PowerShell.Commands.StopTranscriptCommand
+
+PS C:\WINDOWS\system32\git-katas\basic-revert\exercise> Stop-Transcript
+**********************
+Windows PowerShell transcript end
+End time: 20220906152821
+**********************

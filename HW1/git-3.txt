@@ -1,0 +1,198 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20220902162226
+Username: ROBERTOPC\reyes
+RunAs User: ROBERTOPC\reyes
+Configuration Name: 
+Machine: ROBERTOPC (Microsoft Windows NT 10.0.22000.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+Process ID: 5356
+PSVersion: 5.1.22000.832
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.22000.832
+BuildVersion: 10.0.22000.832
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\git-3.txt
+PS C:\WINDOWS\system32\git-katas> whoami
+robertopc\reyes
+PS C:\WINDOWS\system32\git-katas> cd basic-branching
+PS C:\WINDOWS\system32\git-katas\basic-branching> cat README.md
+# Git Kata: Basic Branching
+
+## Setup
+
+1. Run `source setup.sh` (or `.\setup.ps1` in PowerShell)
+
+## The task
+
+You again live in your own branch, this time we will be doing a bit of juggling with branches, to show how lightweight branches are in git.
+Hint: `git switch` will make you switch from one branch to another.
+
+1. Use `git branch` to see the two branches that are relevant for this exercise
+2. What branch are you on?
+3. Use `git branch mybranch` to create a new branch called _mybranch_
+4. Use `git branch` again to see the new branch created.
+5. Use `git switch mybranch` to switch to your new branch.
+6. How does the output from `git status` change when you switch between the _master_ and the new branch that you have created?
+7. How does the workspace change when you change between the two branches?
+8. Make sure you are on your _mybranch_ branch before you continue.
+9. Create a file called `file1.txt` with your name.
+10. `Add` the file and `commit` with this change.
+11. Use `git log --oneline --graph` to see your branch pointing to the new commit.
+12. Switch back to the branch called _master_.
+13. Use `git log --oneline --graph` and notice how the commit you made on the _mybranch_ branch is missing on the _master_ branch.
+14. Make a new file called `file2.txt` and commit that file.
+15. Use `git log --oneline --graph --all` to see your branch pointing to the new commit, and that the two branches now have different commits on them.
+16. Switch to your branch _mybranch_.
+17. What happened to your working directory? Can you see your `file2.txt`?
+18. Use `git diff mybranch master` to see the difference between the two branches.
+
+## Useful commands
+
+- `git switch`
+- `git switch -c`
+- `git log --oneline --graph`
+- `git branch`
+- `git diff`
+PS C:\WINDOWS\system32\git-katas\basic-branching> .\setup.ps1
+Initialized empty Git repository in C:/Windows/System32/git-katas/basic-branching/exercise/.git/
+
+
+
+[master (root-commit) d88c353] dummy commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 dummy.txt
+Switched to a new branch 'second-branch'
+Switched to branch 'master'
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> git branch
+* master
+  second-branch
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> echo I am on the master branch
+I
+am
+on
+the
+master
+branch
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> git branch mybranch
+
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> git switch mybranch
+Switched to branch 'mybranch'
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> git status
+On branch mybranch
+nothing to commit, working tree clean
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> echo The branch that the it is referring to changes
+The
+branch
+that
+the
+it
+is
+referring
+to
+changes
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> echo The workspace changes as my changes will now be on the new branch rather than the master
+The
+workspace
+changes
+as
+my
+changes
+will
+now
+be
+on
+the
+new
+branch
+rather
+than
+the
+master
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> git branch
+  master
+* mybranch
+  second-branch
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> sc file1.txt 'Roberto Reyes'
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> git add file1.txt
+
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> git commit -m "file1 commit"
+[mybranch 549f8af] file1 commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file1.txt
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> git log --oneline --graph
+* 549f8af (HEAD -> mybranch) file1 commit
+* d88c353 (second-branch, master) dummy commit
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> git switch master
+Switched to branch 'master'
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> git log --oneline --graph
+* d88c353 (HEAD -> master, second-branch) dummy commit
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> sc file2.txt ''
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> git add file2.txt
+
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> git commit -m "file2 commit" file2.txt
+[master 9074d01] file2 commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file2.txt
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> git log --oneline --graph --all
+* 9074d01 (HEAD -> master) file2 commit
+| * 549f8af (mybranch) file1 commit
+|/
+* d88c353 (second-branch) dummy commit
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> git swithc mybranch
+git: 'swithc' is not a git command. See 'git --help'.
+
+The most similar command is
+        switch
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> git switch mybranch
+Switched to branch 'mybranch'
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> ls
+
+
+    Directory: C:\WINDOWS\system32\git-katas\basic-branching\exercise
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----          9/2/2022   4:23 PM              7 dummy.txt
+-a----          9/2/2022   4:31 PM             15 file1.txt
+
+
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> echo I am not able to see file2.txt only the commits mybranch points to
+I
+am
+not
+able
+to
+see
+file2.txt
+only
+the
+commits
+mybranch
+points
+to
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> git diff mybranch master
+diff --git a/file1.txt b/file1.txt
+deleted file mode 100644
+index 36952b2..0000000
+--- a/file1.txt
++++ /dev/null
+@@ -1 +0,0 @@
+-Roberto Reyes
+diff --git a/file2.txt b/file2.txt
+new file mode 100644
+index 0000000..8b13789
+--- /dev/null
++++ b/file2.txt
+@@ -0,0 +1 @@
++
+PS C:\WINDOWS\system32\git-katas\basic-branching\exercise> Stop-Transcript
+**********************
+Windows PowerShell transcript end
+End time: 20220902163435
+**********************

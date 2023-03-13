@@ -1,0 +1,157 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20220907224247
+Username: ROBERTOPC\reyes
+RunAs User: ROBERTOPC\reyes
+Configuration Name: 
+Machine: ROBERTOPC (Microsoft Windows NT 10.0.22000.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+Process ID: 12108
+PSVersion: 5.1.22000.832
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.22000.832
+BuildVersion: 10.0.22000.832
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\git-7.txt
+PS C:\WINDOWS\system32\git-katas> whoami
+robertopc\reyes
+PS C:\WINDOWS\system32\git-katas> cd squashing
+PS C:\WINDOWS\system32\git-katas\squashing> .\setup.ps1
+Initialized empty Git repository in C:/Windows/System32/git-katas/squashing/exercise/.git/
+
+
+
+[master (root-commit) 5406999] Initial file
+ 1 file changed, 1 insertion(+)
+ create mode 100644 alsoafile.txt
+
+[master 3b7a702] Add relevant fact
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file.txt
+[master 75c36f9] Add more relevancy
+ 1 file changed, 1 insertion(+)
+[master 25e0f57] Most relevant!
+ 1 file changed, 1 insertion(+)
+[master e59c9b8] Add prime directive
+ 1 file changed, 1 insertion(+)
+[master ebe20fe] Add the word!
+ 1 file changed, 1 insertion(+)
+PS C:\WINDOWS\system32\git-katas\squashing\exercise> git log
+commit ebe20fe805ad091460658114994ef820dcab7cb6 (HEAD -> master)
+Author: git-katas trainer bot <git-katas@example.com>
+Date:   Wed Sep 7 22:42:57 2022 -0500
+
+    Add the word!
+
+commit e59c9b81ac881e094a1ab2ec2aed894f74842397
+Author: git-katas trainer bot <git-katas@example.com>
+Date:   Wed Sep 7 22:42:56 2022 -0500
+
+    Add prime directive
+
+commit 25e0f57f7f0d0a977a62f340354bc4d45ad5cffa
+Author: git-katas trainer bot <git-katas@example.com>
+Date:   Wed Sep 7 22:42:56 2022 -0500
+
+    Most relevant!
+
+commit 75c36f916d2c190d636d77906cc24fd852139dcb
+Author: git-katas trainer bot <git-katas@example.com>
+Date:   Wed Sep 7 22:42:56 2022 -0500
+
+    Add more relevancy
+
+commit 3b7a7028c05a4c4fc4d406fee810bf82e2fd8582
+Author: git-katas trainer bot <git-katas@example.com>
+Date:   Wed Sep 7 22:42:56 2022 -0500
+
+    Add relevant fact
+PS C:\WINDOWS\system32\git-katas\squashing\exercise> git rebase -i HEAD~5
+[detached HEAD c046e9a] This commit is a combinatino of 5 commits
+ Date: Wed Sep 7 22:42:56 2022 -0500
+ 1 file changed, 5 insertions(+)
+ create mode 100644 file.txt
+Successfully rebased and updated refs/heads/master.
+PS C:\WINDOWS\system32\git-katas\squashing\exercise> git log
+commit c046e9a4949f96ab37c54614707a39b3560583d7 (HEAD -> master)
+Author: git-katas trainer bot <git-katas@example.com>
+Date:   Wed Sep 7 22:42:56 2022 -0500
+
+    This commit is a combinatino of 5 commits
+
+    This commit is a combination of 5 commits that have been squashed
+    together into a single one. The first commit added a relevant fact, the
+    second added more relevancy, the third commit was the most relevant, the
+    fourth commit added prime directive and the fifth commit added a word.
+    Squashing these commits together will change the commit history.
+
+commit 5406999d584ec1131bd060d76dac02b4318cd254
+Author: git-katas trainer bot <git-katas@example.com>
+Date:   Wed Sep 7 22:42:56 2022 -0500
+
+    Initial file
+PS C:\WINDOWS\system32\git-katas\squashing\exercise> echo There are only two commits now, the initial file commit which was not listed before and the new commit created by squashing the previous 5 commits that were listed.
+There
+are
+only
+two
+commits
+now
+the
+initial
+file
+commit
+which
+was
+not
+listed
+before
+and
+the
+new
+commit
+created
+by
+squashing
+the
+previous
+5
+commits
+that
+were
+listed.
+PS C:\WINDOWS\system32\git-katas\squashing\exercise> notepad.exe file.txt
+PS C:\WINDOWS\system32\git-katas\squashing\exercise> git add file.txt
+
+PS C:\WINDOWS\system32\git-katas\squashing\exercise> git commit --amend --no-edit
+[master aa03a75] This commit is a combinatino of 5 commits
+ Date: Wed Sep 7 22:42:56 2022 -0500
+ 1 file changed, 5 insertions(+)
+ create mode 100644 file.txt
+PS C:\WINDOWS\system32\git-katas\squashing\exercise> git log
+commit aa03a7524f077c231f3ebc7ab30dfd3eab98bd8f (HEAD -> master)
+Author: git-katas trainer bot <git-katas@example.com>
+Date:   Wed Sep 7 22:42:56 2022 -0500
+
+    This commit is a combinatino of 5 commits
+
+    This commit is a combination of 5 commits that have been squashed
+    together into a single one. The first commit added a relevant fact, the
+    second added more relevancy, the third commit was the most relevant, the
+    fourth commit added prime directive and the fifth commit added a word.
+    Squashing these commits together will change the commit history.
+
+commit 5406999d584ec1131bd060d76dac02b4318cd254
+Author: git-katas trainer bot <git-katas@example.com>
+Date:   Wed Sep 7 22:42:56 2022 -0500
+
+    Initial file
+PS C:\WINDOWS\system32\git-katas\squashing\exercise> Stop-Transcript
+**********************
+Windows PowerShell transcript end
+End time: 20220907225705
+**********************

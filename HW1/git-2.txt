@@ -1,0 +1,369 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20220902155246
+Username: ROBERTOPC\reyes
+RunAs User: ROBERTOPC\reyes
+Configuration Name: 
+Machine: ROBERTOPC (Microsoft Windows NT 10.0.22000.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+Process ID: 5356
+PSVersion: 5.1.22000.832
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.22000.832
+BuildVersion: 10.0.22000.832
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\git-2.txt
+PS C:\WINDOWS\system32\git-katas> whoami
+robertopc\reyes
+PS C:\WINDOWS\system32\git-katas> cd basic-staging
+PS C:\WINDOWS\system32\git-katas\basic-staging> cat README.md
+# Git Kata: Basic Staging
+
+This kata will examine the staging area of git.
+
+In git we are working with three different areas:
+
+* The working directory where you are making your changes
+* The staging area where all changes you have added through `git add` will stay
+* The repository where every commit ends up, making your history. To put your staged changes in here you issue the `git commit` command.
+
+A file can have changes both in the working directory and staging area at the same time.
+These changes do not have to be the same.
+
+We will also work with `git restore` to restore the staged changes of a file, and `git checkout` to return a file to a previous state.
+
+## Setup
+
+1. Run `source setup.sh` (or `.\setup.ps1` in PowerShell)
+
+## The task
+
+You live in your own repository. There is a file called `file.txt`.
+
+1. What's the content of `file.txt`?
+2. Overwrite the content in `file.txt`: `echo 2 > file.txt` to change the state of your file in the working directory (or `sc file.txt '2'` in PowerShell)
+3. What does `git diff` tell you?
+4. What does `git diff --staged` tell you? why is this blank?
+5. Run `git add file.txt` to stage your changes from the working directory.
+6. What does `git diff` tell you?
+7. What does `git diff --staged` tell you?
+8. Overwrite the content in `file.txt`: `echo 3 > file.txt` to change the state of your file in the working directory (or `sc file.txt '3'` in PowerShell).
+9. What does `git diff` tell you?
+10. What does `git diff --staged` tell you?
+11. Explain what is happening
+12. Run `git status` and observe that `file.txt` are present twice in the output.
+13. Run `git restore --staged file.txt` to unstage the change
+14. What does `git status` tell you now?
+15. Stage the change and make a commit
+16. What does the log look like?
+17. Overwrite the content in `file.txt`: `echo 4 > file.txt` (or `sc file.txt '4'` in PowerShell)
+18. What is the content of `file.txt`?
+19. What does `git status` tell us?
+20. Run `git restore file.txt`
+21. What is the content of `file.txt`?
+22. What does `git status` tell us?
+
+## Useful commands
+
+- `git add`
+- `git commit`
+- `git commit -m "My lazy short commit message"`
+- `git log`
+- `git log -n 5`
+- `git log --oneline`
+- `git log --oneline --graph`
+- `git restore --staged`
+
+## Aliases
+
+You can set up aliases as such:
+`git config --global alias.lol 'log --oneline --graph --all'`
+This might be useful to you.
+PS C:\WINDOWS\system32\git-katas\basic-staging> .\setup.ps1
+Initialized empty Git repository in C:/Windows/System32/git-katas/basic-staging/exercise/.git/
+
+
+
+[master (root-commit) 6f3ef72] 1
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file.txt
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> cat file.txt
+1
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> echo The content of the file is "1"
+The
+content
+of
+the
+file
+is
+1
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> sc file.txt '2'
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> git diff
+diff --git a/file.txt b/file.txt
+index d00491f..0cfbf08 100644
+--- a/file.txt
++++ b/file.txt
+@@ -1 +1 @@
+-1
++2
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> echo It tells me there was one deletion which was '1' and one insertion which was '2'
+It
+tells
+me
+there
+was
+one
+deletion
+which
+was
+1
+and
+one
+insertion
+which
+was
+2
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> git diff --staged
+
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> echo It tells me nothing. It is blank because the change has not been staged yet
+It
+tells
+me
+nothing.
+It
+is
+blank
+because
+the
+change
+has
+not
+been
+staged
+yet
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> git add file.txt
+
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> git diff
+
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> echo Nothing, it is blank.
+Nothing
+it
+is
+blank.
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> git diff --staged
+diff --git a/file.txt b/file.txt
+index d00491f..0cfbf08 100644
+--- a/file.txt
++++ b/file.txt
+@@ -1 +1 @@
+-1
++2
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> echo It tells me what git diff showed me before the change was staged
+It
+tells
+me
+what
+git
+diff
+showed
+me
+before
+the
+change
+was
+staged
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> sc file.txt '3'
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> git diff
+diff --git a/file.txt b/file.txt
+index 0cfbf08..00750ed 100644
+--- a/file.txt
++++ b/file.txt
+@@ -1 +1 @@
+-2
++3
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> echo It tells me that there was one deletion which is '2' and an insertion which is '3'
+It
+tells
+me
+that
+there
+was
+one
+deletion
+which
+is
+2
+and
+an
+insertion
+which
+is
+3
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> git diff --staged
+diff --git a/file.txt b/file.txt
+index d00491f..0cfbf08 100644
+--- a/file.txt
++++ b/file.txt
+@@ -1 +1 @@
+-1
++2
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> echo It remained unchaged
+It
+remained
+unchaged
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> echo git diff is showing me the most current change but git diff --staged is showing me the most current change that has been staged
+git
+diff
+is
+showing
+me
+the
+most
+current
+change
+but
+git
+diff
+--staged
+is
+showing
+me
+the
+most
+current
+change
+that
+has
+been
+staged
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   file.txt
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   file.txt
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> git restore --staged file.txt
+
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   file.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> echo It is only showing the uncommitted change of modifying the file
+It
+is
+only
+showing
+the
+uncommitted
+change
+of
+modifying
+the
+file
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> git add file.txt
+
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> git commit -m "first commit" file.txt
+[master 8f9f38d] first commit
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> git log
+commit 8f9f38dc7cf64386da6bb5f9f57a26aeddcc5685 (HEAD -> master)
+Author: git-katas trainer bot <git-katas@example.com>
+Date:   Fri Sep 2 16:10:23 2022 -0500
+
+    first commit
+
+commit 6f3ef72d6a7da98bace900807f7108c3d17da80b
+Author: git-katas trainer bot <git-katas@example.com>
+Date:   Fri Sep 2 15:54:58 2022 -0500
+
+    1
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> echo It is showing the commit after the creation of the file and the commit I just did
+It
+is
+showing
+the
+commit
+after
+the
+creation
+of
+the
+file
+and
+the
+commit
+I
+just
+did
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> sc file.txt '4'
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> cat file.txt
+4
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> echo The content of the file is '4'
+The
+content
+of
+the
+file
+is
+4
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   file.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> echo The change I just made is not staged for commit
+The
+change
+I
+just
+made
+is
+not
+staged
+for
+commit
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> git restore file.txt
+
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> cat file.txt
+3
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> echo The content of the file is '3'
+The
+content
+of
+the
+file
+is
+3
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> git status
+On branch master
+nothing to commit, working tree clean
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> echo There is nothing to commit to the master branch
+There
+is
+nothing
+to
+commit
+to
+the
+master
+branch
+PS C:\WINDOWS\system32\git-katas\basic-staging\exercise> Stop-Transcript
+**********************
+Windows PowerShell transcript end
+End time: 20220902161557
+**********************
